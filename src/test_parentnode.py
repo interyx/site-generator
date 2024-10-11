@@ -1,6 +1,6 @@
 import unittest
-
 from parentnode import ParentNode
+from htmlnode import HTMLNode
 from leafnode import LeafNode
 
 class TestParentNode(unittest.TestCase):
@@ -59,3 +59,5 @@ class TestParentNode(unittest.TestCase):
         node.children.append(self.testParent)
         test = '<p><b>Bold text</b>Normal text<i>Italic text</i>Normal text<a href="google.com"><p>A paragraph</p><b>bold text</b></a></p>'
         self.assertEqual(node.to_html(), test)
+
+

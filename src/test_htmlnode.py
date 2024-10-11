@@ -1,5 +1,4 @@
 import unittest
-
 from htmlnode import HTMLNode
 
 class TestHTMLNode(unittest.TestCase):
@@ -16,3 +15,4 @@ class TestHTMLNode(unittest.TestCase):
         props = { "href": "https://www.google.com", "target": "_blank"}
         anchor = HTMLNode(tag="a", props=props)
         self.assertEqual(anchor.props_to_html(), 'href="https://www.google.com" target="_blank"')
+

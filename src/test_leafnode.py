@@ -1,6 +1,6 @@
 import unittest
-
 from leafnode import LeafNode
+from htmlnode import HTMLNode
 
 class TestLeafNode(unittest.TestCase):
 
@@ -28,3 +28,5 @@ class TestLeafNode(unittest.TestCase):
         result = '<a href="https://www.google.com">Click me!</a>'
         self.assertEqual(node.to_html(), result)
 
+if __name__ == '__main__':
+    unittest.main()

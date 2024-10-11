@@ -1,4 +1,3 @@
-
 from leafnode import LeafNode
 
 def text_node_to_html_node(text_node):
@@ -17,3 +16,6 @@ def text_node_to_html_node(text_node):
             return LeafNode(value="", tag="img", props={"href": text_node.url, "alt": text_node.text})
         case _:
             raise Exception("invalid text type")
+
+
+
