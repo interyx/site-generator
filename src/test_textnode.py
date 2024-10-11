@@ -2,6 +2,7 @@ import unittest
 
 from textnode import *
 from leafnode import LeafNode
+from util import *
 
 class TestTextNode(unittest.TestCase):
     def test_eq(self):
