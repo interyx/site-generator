@@ -4,6 +4,7 @@ from leafnode import LeafNode
 from util import *
 from constants import *
 
+
 class TestTextNode(unittest.TestCase):
     def test_eq(self):
         node = TextNode("This is a text node", TEXT_TYPE_BOLD)
@@ -49,13 +50,19 @@ class TestTextNode(unittest.TestCase):
 
     def test_convert_text_type_link(self):
         node = TextNode("google.com", TEXT_TYPE_LINK, "http://www.google.com")
-        test_result = LeafNode(value="google.com", tag="a", props={"href": "http://www.google.com"}).to_html()
+        test_result = LeafNode(
+            value="google.com", tag="a", props={"href": "http://www.google.com"}
+        ).to_html()
         value = text_node_to_html_node(node).to_html()
         self.assertEqual(test_result, value)
 
     def test_convert_text_type_image(self):
         node = TextNode("a picture of a swan", TEXT_TYPE_IMAGE, "http://tumblr.com/100")
-        test_result = LeafNode(value="", tag="img", props={"href": "http://tumblr.com/100", "alt": "a picture of a swan"}).to_html()
+        test_result = LeafNode(
+            value="",
+            tag="img",
+            props={"href": "http://tumblr.com/100", "alt": "a picture of a swan"},
+        ).to_html()
         value = text_node_to_html_node(node).to_html()
         self.assertEqual(test_result, value)
 
@@ -63,4 +70,3 @@ class TestTextNode(unittest.TestCase):
         node = TextNode("some kind of nonsense", "strong")
         with self.assertRaises(Exception):
             text_node_to_html_node(node)
-

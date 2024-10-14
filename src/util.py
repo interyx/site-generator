@@ -37,6 +37,9 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
         if not isinstance(node, TextNode):
             results.append(node)
             continue
+        if node.text_type != TEXT_TYPE_TEXT:
+            results.append(node)
+            continue
         split_tokens = node.text.split(delimiter)
         if len(split_tokens) % 2 == 0:
             raise ValueError(
@@ -46,8 +49,9 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
             if index % 2 == 0:
                 results.append(TextNode(split_tokens[index], TEXT_TYPE_TEXT))
             else:
-                results.append(TextNode(split_tokens[index], text_type))
-
+                if len(split_tokens[index]) > 0:
+                    print(len(split_tokens[index]))
+                    results.append(TextNode(split_tokens[index], text_type))
     return results
 
 
@@ -94,4 +98,13 @@ def split_nodes_link(old_nodes):
             text = sections[1]
         if text:
             new_nodes.append(TextNode(text, TEXT_TYPE_TEXT))
+    return new_nodes
+
+
+def text_to_textnodes(text):
+    new_nodes = []
+    new_nodes.append(TextNode(text, TEXT_TYPE_TEXT))
+    new_nodes = split_nodes_delimiter(new_nodes, "**", TEXT_TYPE_BOLD)
+    new_nodes = split_nodes_delimiter(new_nodes, "*", TEXT_TYPE_ITALIC)
+    new_nodes = split_nodes_delimiter(new_nodes, "`", TEXT_TYPE_CODE)
     return new_nodes
