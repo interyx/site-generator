@@ -57,6 +57,16 @@ class TestSplitNode(unittest.TestCase):
         ]
         self.assertTrue(result == split_nodes_delimiter([node], "**", TEXT_TYPE_BOLD))
 
+    def test_node_at_end(self):
+        node = TextNode("I have written some `code`", TEXT_TYPE_TEXT)
+        result = [
+            TextNode("I have written some ", TEXT_TYPE_TEXT),
+            TextNode("code", TEXT_TYPE_CODE)
+        ]
+        calc = split_nodes_delimiter([node], '`', TEXT_TYPE_CODE)
+        self.assertEqual(result, calc) 
+
+
     def test_successive_calls(self):
         node = TextNode("This is a **bold** and an *italic* node", TEXT_TYPE_TEXT)
         result = [

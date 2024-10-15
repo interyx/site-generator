@@ -5,7 +5,7 @@ import re
 
 
 def text_node_to_html_node(text_node):
-    match (text_node.text_type):
+    match text_node.text_type:
         case "text":
             return LeafNode(value=text_node.text)
         case "bold":
@@ -45,13 +45,12 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
             raise ValueError(
                 "Unpaired formatting token detected.  Markdown requires your delimiter (*, **, `) be around the **entire** section of text to be bolded."
             )
-        for index, node in enumerate(split_tokens):
+        for index, current_node in enumerate(split_tokens):
             if index % 2 == 0:
-                results.append(TextNode(split_tokens[index], TEXT_TYPE_TEXT))
-            else:
                 if len(split_tokens[index]) > 0:
-                    print(len(split_tokens[index]))
-                    results.append(TextNode(split_tokens[index], text_type))
+                    results.append(TextNode(split_tokens[index], TEXT_TYPE_TEXT))
+            else:
+                results.append(TextNode(split_tokens[index], text_type))
     return results
 
 
@@ -107,4 +106,6 @@ def text_to_textnodes(text):
     new_nodes = split_nodes_delimiter(new_nodes, "**", TEXT_TYPE_BOLD)
     new_nodes = split_nodes_delimiter(new_nodes, "*", TEXT_TYPE_ITALIC)
     new_nodes = split_nodes_delimiter(new_nodes, "`", TEXT_TYPE_CODE)
+    new_nodes = split_nodes_image(new_nodes)
+    new_nodes = split_nodes_link(new_nodes)
     return new_nodes
