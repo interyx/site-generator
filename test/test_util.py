@@ -1,8 +1,8 @@
 import unittest
-from util import *
-from constants import *
-from leafnode import LeafNode
-from htmlnode import HTMLNode
+from src.util import *
+from src.constants import *
+from src.leafnode import LeafNode
+from src.htmlnode import HTMLNode
 
 
 class TestSplitNode(unittest.TestCase):

@@ -1,7 +1,7 @@
 import unittest
-from textnode import *
-from util import *
-from constants import *
+from src.textnode import *
+from src.util import *
+from src.constants import *
 
 
 class TestTextToTextNodes(unittest.TestCase):

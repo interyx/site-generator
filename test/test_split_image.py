@@ -1,8 +1,8 @@
 import unittest
 
-from textnode import TextNode
-from constants import *
-from util import *
+from src.textnode import TextNode
+from src.constants import *
+from src.util import *
 
 
 class TestSplitImageNode(unittest.TestCase):

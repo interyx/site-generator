@@ -1,6 +1,6 @@
-from leafnode import LeafNode
-from textnode import TextNode
-from constants import *
+from src.leafnode import LeafNode
+from src.textnode import TextNode
+from src.constants import *
 import re
 
 
@@ -113,5 +113,3 @@ def text_to_textnodes(text):
 
 def markdown_to_blocks(markdown):
     return [x.strip() for x in markdown.split("\n\n") if x != "\n"]
-    # return list(map(lambda x: x.strip(), markdown.split("\n\n")))
-    # return filter(lambda x: x != ("\n"), markdown.split("\n"))

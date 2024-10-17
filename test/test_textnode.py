@@ -1,8 +1,8 @@
 import unittest
-from textnode import *
-from leafnode import LeafNode
-from util import *
-from constants import *
+from src.textnode import *
+from src.leafnode import LeafNode
+from src.util import *
+from src.constants import *
 
 
 class TestTextNode(unittest.TestCase):
