@@ -1,5 +1,6 @@
 import unittest
 from src.generator import *
+from src.mdutil import *
 
 
 class TestGenerator(unittest.TestCase):
@@ -101,3 +102,18 @@ int main() {
         markdown = "## Heading 2\n\nParagraph 1\n\n#### Heading 4\n\nParagraph with **bold** and *italic* text"
         result = "<div><h2>Heading 2</h2><p>Paragraph 1</p><h4>Heading 4</h4><p>Paragraph with <b>bold</b> and <i>italic</i> text</p></div>"
         self.assertEqual(result, markdown_to_html_node(markdown).to_html())
+
+    def test_extract_title(self):
+        markdown = "# Hello"
+        result = "Hello"
+        self.assertEqual(result, extract_title(markdown))
+
+    def test_extract_title_multi(self):
+        markdown = "## H2\n\n### H3\n\nParagraph\n\n# Hello"
+        result = "Hello"
+        self.assertEqual(result, extract_title(markdown))
+
+    def test_no_title(self):
+        markdown = "Some text\n\n## H2\n\n```code```"
+        with self.assertRaises(Exception):
+            extract_title(markdown)

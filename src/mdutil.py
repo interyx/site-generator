@@ -1,7 +1,9 @@
 from src.constants import *
+from src.util import *
+
 
 def block_to_block_type(markdown):
-    match(markdown[0]):
+    match (markdown[0]):
         case "#":
             pounds = markdown.count("#")
             if 1 <= pounds <= 6:
@@ -33,6 +35,15 @@ def block_to_block_type(markdown):
                 if line[0:3] != f"{idx+1}. ":
                     return MD_TYPE_P
             return MD_TYPE_OL
-                
 
     return MD_TYPE_P
+
+
+def extract_title(markdown):
+    pass
+    blocks = markdown_to_blocks(markdown)
+    for block in blocks:
+        if block_to_block_type(block) == MD_TYPE_H:
+            if block.count("#") == 1:
+                return block.replace("# ", "").strip()
+    raise Exception("No title found in markdown file")

@@ -1,3 +1,4 @@
+import os
 from src.constants import *
 from src.leafnode import LeafNode
 from src.textnode import TextNode
@@ -80,3 +81,26 @@ def markdown_to_html_node(markdown):
         if block_type == MD_TYPE_H:
             nodes.append(process_heading(block))
     return ParentNode(tag="div", children=nodes)
+
+
+def generate_page(src, tmp_path, dst):
+    print(f"Generating page from {src} to {dst} using {tmp_path}")
+    src_exists = os.path.exists(src)
+    tmp_exists = os.path.exists(tmp_path)
+    if not src_exists or not tmp_exists:
+        raise Exception(
+            "Required files missing.  Please ensure all files exist and try again."
+        )
+    with open(tmp_path) as f:
+        template = f.read()
+    with open(src) as f:
+        content = f.read()
+    content_html = markdown_to_html_node(content).to_html()
+    title = extract_title(content)
+    template = template.replace("{{ Title }}", title)
+    template = template.replace("{{ Content }}", content_html)
+    dir = os.path.dirname(dst)
+    if not os.path.exists(dir):
+        os.mkdirs(dir)
+    with open(dst, "a") as f:
+        f.write(template)

@@ -13,7 +13,7 @@ class TestMarkdownBlocks(unittest.TestCase):
         text = "# This is a heading\n\nThis is a paragraph of text.  It has some **bold** and *italic* words in it."
         result = [
             "# This is a heading",
-            "This is a paragraph of text.  It has some **bold** and *italic* words in it."
+            "This is a paragraph of text.  It has some **bold** and *italic* words in it.",
         ]
         self.assertEqual(result, markdown_to_blocks(text))
 
@@ -22,7 +22,7 @@ class TestMarkdownBlocks(unittest.TestCase):
         result = [
             "# This is a heading",
             "This is a paragraph of text with **bold** and *italics*",
-            "* This is the first list item in a list block\n* This is the second list item\n* This is the third list item"
+            "* This is the first list item in a list block\n* This is the second list item\n* This is the third list item",
         ]
         self.assertEqual(result, markdown_to_blocks(text))
 
@@ -31,15 +31,20 @@ class TestMarkdownBlocks(unittest.TestCase):
         result = [
             "# This is a heading",
             "This is a paragraph of text with **bold** and *italic*",
-            "I'm a little teapot, short and stout"
+            "I'm a little teapot, short and stout",
         ]
         self.assertEqual(result, markdown_to_blocks(text))
 
     def test_strip_extra_blocks(self):
         text = "# Heading 1\n\n\n# Heading 2\n\nTeapot"
-        result = [
-            "# Heading 1",
-            "# Heading 2",
-            "Teapot"
-        ]
+        result = ["# Heading 1", "# Heading 2", "Teapot"]
         self.assertEqual(result, markdown_to_blocks(text))
+
+    def test_content(self):
+        text = """# Tolkien Fan Club
+
+**I like Tolkien**. Read my [first post here](/majesty) (sorry the link doesn't work yet)"""
+        result = [
+            "# Tolkien Fan Club",
+            "**I like Tolkien**. Read my [first post here](/majesty) (sorry the link doesn't work yet)",
+        ]
