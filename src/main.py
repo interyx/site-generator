@@ -1,9 +1,13 @@
-from textnode import TextNode
+from src.util import *
+
 
 def main():
-    node = TextNode("this is a text node", "bold", "https://www.boot.dev")
-    print(node)
+    copy_dir(
+        "/home/interyx/dev/site-generator/static",
+        "/home/interyx/dev/site-generator/public",
+        True,
+    )
+
 
 if __name__ == "__main__":
     main()
-

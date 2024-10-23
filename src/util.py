@@ -2,6 +2,8 @@ from src.leafnode import LeafNode
 from src.textnode import TextNode
 from src.constants import *
 import re
+import os
+import shutil
 
 
 def text_node_to_html_node(text_node):
@@ -113,3 +115,19 @@ def text_to_textnodes(text):
 
 def markdown_to_blocks(markdown):
     return [x.strip() for x in markdown.split("\n\n") if x != "\n"]
+
+
+def copy_dir(src, dst, first_run=False):
+    if first_run:
+        if os.path.exists(dst):
+            print(f"Found directory {dst}.  Deleting...")
+            shutil.rmtree(dst)
+        os.mkdir(dst)
+    for item in os.listdir(src):
+        item_path = os.path.join(src, item)
+        if os.path.isfile(item_path):
+            shutil.copy(item_path, dst)
+        if os.path.isdir(item_path):
+            new_dst = os.path.join(dst, item)
+            os.mkdir(new_dst)
+            copy_dir(item_path, new_dst)
