@@ -104,3 +104,23 @@ def generate_page(src, tmp_path, dst):
         os.mkdirs(dir)
     with open(dst, "a") as f:
         f.write(template)
+
+
+"""
+This function will behave similarly to copy_dir
+> Scan current directory for ".md" files
+> For each file found, convert to HTML, write to public directory
+> If a folder is found, append the name to the src path and dst path & call again
+"""
+
+
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+    for item in os.listdir(dir_path_content):
+        item_path = os.path.join(dir_path_content, item)
+        new_ext = item.replace(".md", ".html")
+        dst_path = os.path.join(dest_dir_path, new_ext)
+        if os.path.isfile(item_path):
+            generate_page(item_path, template_path, dst_path)
+        if os.path.isdir(item_path):
+            os.mkdir(dst_path)
+            generate_pages_recursive(item_path, template_path, dst_path)

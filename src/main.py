@@ -9,10 +9,10 @@ def main():
         True,
     )
 
-    generate_page(
-        "/home/interyx/dev/site-generator/content/index.md",
+    generate_pages_recursive(
+        "/home/interyx/dev/site-generator/content/",
         "/home/interyx/dev/site-generator/template.html",
-        "/home/interyx/dev/site-generator/public/index.html",
+        "/home/interyx/dev/site-generator/public/",
     )
 
 
